@@ -15,22 +15,42 @@ menu_options = {
 					'name' : 'View parking lots',
 					'link' : 'view-parking',
 					funct : function() {
-						query();
+						query_join_requests();
 						}
 				},
 				{
 					'name' : 'Reserve parking spot',
 					'link' : 'reserve_spot',
 					funct : function() {
-						query();
+						query_join_requests();
 						}
 				},
 				{
 					'name' : 'Update personal info',
 					'link' : 'update-personal',
 					funct : function() {
-						query();
+						query_join_requests();
 						}
+				}
+			]
+	},
+	'family-menu' : {
+		'family-menu-main-panel' : [
+				{
+					'name' : 'Reminders',
+					'link' : 'family-reminders',
+					funct : function() {
+						console.log("MERGE FUNCTIA pt reminder!");
+						query_reminders();
+					}
+				},
+				{
+					'name' : 'Lists',
+					'link' : 'family-lists',
+					funct : function() {
+						console.log('merge functia pt lists!');
+						query_lists();
+					}
 				}
 			]
 	}
@@ -182,61 +202,4 @@ function load_menu_links(menu, menu_option) {
 
 }
 
-function add_back_button(menu_option) {
-	element = $('<a class="sidebar-back-button"><div class="side-menu-option">Back</div></a>');
-	$("#side-menu").append(element);
-	$("#side-menu > .sidebar-back-button").click(function(e) {
-		e.preventDefault();
-		load_sidebar_options(menu_option);
-		show_content(menu_option+'-main-panel');
-	});
-}
-
-
-
-function add_cursor_button_event(id,url,extra_data) {
-
-	if (typeof extra_data === 'undefined') { extra_data = ''; }
-
-	console.log("add_cursor_button_event");
-
-	$(".cursor-button").click(function(e) {
-
-		username = '{{ username }}';
-		console.log("USERNAME: " + username);
-
-		data = {
-			'id' : id,
-			'user' : username
-		}
-
-		if (extra_data !== '') {
-
-			console.log("ADD CURSOR FOUND EXTRA DATA:  ");
-			console.log(JSON.stringify(extra_data));
-
-			for (var key in extra_data) {
-				data[key] = extra_data[key];
-			}
-			console.log('DATA AFTER EXTRA: '+JSON.stringify(data));
-
-		}
-
-		$.ajax({
-			url: url,
-			method: 'POST',
-			data: JSON.stringify(data)
-		});
-
-	});
-
-}
-
-
-// ---------------------------- BUTTON EVENTS 
-$("#content-back-button").click(function(e) {
-	e.preventDefault();
-	console.log(current_family);
-	// query_reminders();
-	add_lists();
 });
