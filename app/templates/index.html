@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+ <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Family</title>
+
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+
+        <link href="{{ url_for('static', filename='fonts/glyphicons.css') }}" rel="stylesheet">
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
+        <script>
+
+        	{% include 'app.js' %}
+
+		</script>
+    </head>
+<body>
+
+<div id='wrapper'>
+
+	<div id='header'>
+		<div id='logo-container'>
+			<img src="../static/images/logo.png" style="width: 50%;" class="img-responsive pull-right">
+		</div>
+	</div>
+	<div id='content-container'>
+		
+
+		<div id="side-menu">
+			<div id='side-menu-header'>Main Panel</div>
+
+		</div>
+
+
+		<div id="content">
+			<div id='content-header-container'>
+				<span class="glyphicon glyphicon-home content-header-icon" aria-hidden="true"></span>
+				<p id='content-header'>Home</p>
+				<span class="glyphicon glyphicon-arrow-left content-header-icon" aria-hidden="true" id='content-back-button'></span>
+			</div>
+
+
+			<div class="content-2col" id='content_user-menu-main-panel'>
+				<div class='content-2col-col'>
+					<div id='home-page-image' style='margin-right:-20%;'>
+						<img src="../static/images/main_page_image.png" style="width: 70%;" class="img-responsive pull-right">
+					</div>
+				</div>
+				<div class='content-2col-col' style='justify-content: center;margin-right: 15%;'>
+					<h1 style='color:#636363'>Welcome to the Home Page!</h1>
+
+				</div>
+			</div>
+
+			<div class="content-2col" id='content_view-parking' style='display:none;'>
+			    <div id='view_parking-container'>
+			    	<h5 id="view_parking-header"> Select a parking lot! </h5>
+
+			        <div class="content-auto-height-row">
+			            <input id='view_parking' type="text" placeholder="Location (City)" class='input-styled' style="width: 30%;margin-right: 5%;">
+			            <span id='view_parking-search-location' aria-hidden="true" class="glyphicon glyphicon-search content-header-icon" style="cursor:pointer;color: #f85a3e;font-size: 2.4rem;"></span>
+			        </div>
+
+			        <div class="content-auto-height-row" id='view_parking-id-row' style='display: none;'>
+			        	<input id='view_parking-id' type="text" placeholder="ID" class='input-styled' style="width: 30%;margin-right: 5%;">
+			            <span id='view_parking-search-id' aria-hidden="true" class="glyphicon glyphicon-search content-header-icon" style="cursor:pointer;color: #f85a3e;font-size: 2.4rem;"></span>
+			        </div>
+
+			        <table id="parkings-table" class='table-styled'>
+			            <tbody style="">
+			              
+			            </tbody>
+			        </table>
+
+			        <div id='view_parking-switch-button' class='button-styled' style='position: absolute;bottom: 7%;'>
+			        	Search by ID
+			        </div>
+
+			    </div>
+			</div>
+
+			<div class="content-2col" id="content_update-personal" style="display: none;">
+				<div class="content-2col-col" style="justify-content: space-evenly;height: 56%;width: 42%;">
+			    	<!-- TODO: UPDATE DATA -->
+			        <input id="update-user-firstname" type="text" placeholder="First Name" class="input-styled" style="width: 60%;margin-right: 5%;">
+			        <input id="update-user-secondname" type="text" placeholder="Second Name" class="input-styled" style="width: 60%;margin-right: 5%;">
+			        <input id="update-user-registration" type="text" placeholder="Registration Plate" class="input-styled" style="width: 60%;margin-right: 5%;">
+			        <div id="update-user-post-button" class="button-styled" style="position: absolute;bottom: 12%;">
+		        			Update Info
+		        	</div>
+			    </div>
+
+			    <div class="content-2col-col" style="justify-content: center;height: 56%;">
+			        <h5><b>Entering your data allows us to know who you are!</b></h5>
+					<p style="font-size: 1.1rem;margin: 0;">
+					    <br>
+					    We identify you by your full name and registration plate of your vehicle.
+					</p>
+					<p style="font-size: 1.1rem;">
+					    <br>
+					    This data can be updated or deleted are any time!
+					</p>
+					<h5 style="margin-top: 2rem;"><b>Start today by filling the form on the left side!</b></h5>
+				</div>
+			</div>
+
+
+			</div>
+
+		</div>
+
+
+	<div id='footer'></div>
+
+</div>
+
+</body>
+</html>
