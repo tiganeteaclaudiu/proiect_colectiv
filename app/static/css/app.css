@@ -167,7 +167,7 @@ body, html {
 	font-size: 1.7rem;
 }
 
-#join-family-container {
+#view_parking-container {
 	width: 70%;
 	height: 80%;
 	display: flex;
@@ -176,7 +176,7 @@ body, html {
 	flex-direction: column;
 }
 
-#join-family-header {
+#view_parking-header {
 	margin-top: 5%;
 	font-size: 2.5rem;
 	font-family: arial;

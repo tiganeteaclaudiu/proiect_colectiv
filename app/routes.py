@@ -1,7 +1,7 @@
 from app import app
 from app import db
 from flask import render_template,request, session, redirect, url_for
-from app.models import User, Family, Join_Request, family_identifier, Reminder, List
+from app.models import User
 from functools import wraps
 import json
 import datetime
@@ -24,8 +24,8 @@ def logged_in(f):
 @app.route('/index/')
 @logged_in
 def index():
-	no_family = check_no_family(session['username'])
-	return render_template('index.html',username = session['username'],no_family = no_family)
+	# no_family = check_no_family(session['username'])
+	return render_template('index.html',username = session['username'])
 
 @app.route('/register/')
 def register():
@@ -87,7 +87,6 @@ def post_login():
 				print ('logged in')
 				session['logged_in'] = True
 				session['username'] = username
-				check_no_family(username)
 				return json.dumps({'status' : 'success'})
 			else:
 				print ('password wrong')

@@ -15,21 +15,18 @@ menu_options = {
 					'name' : 'View parking lots',
 					'link' : 'view-parking',
 					funct : function() {
-						query_join_requests();
 						}
 				},
 				{
 					'name' : 'Reserve parking spot',
 					'link' : 'reserve_spot',
 					funct : function() {
-						query_join_requests();
 						}
 				},
 				{
 					'name' : 'Update personal info',
 					'link' : 'update-personal',
 					funct : function() {
-						query_join_requests();
 						}
 				}
 			]
@@ -201,5 +198,17 @@ function load_menu_links(menu, menu_option) {
 	});
 
 }
+
+$("#view_parking-switch-button").click(function(e) {
+	if ($("#view_parking-id-row").css("display") === 'none' ) {
+		$("#view_parking-location-row").hide();
+		$("#view_parking-id-row").css("display","flex");
+		$("#view_parking-switch-button").html('Search by name');
+	} else {
+		$("#view_parking-id-row").hide();
+		$("#view_parking-location-row").css("display","flex");
+		$("#view_parking-switch-button").html('Search by ID');
+	}
+});
 
 });
