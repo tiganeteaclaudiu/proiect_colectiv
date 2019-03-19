@@ -12,14 +12,14 @@ menu_options = {
 	'user-menu' : {
 		'user-menu-main-panel' : [
 				{
-					'name' : 'View parking lots',
-					'link' : 'view-parking',
+					'name' : 'Reserve parking spots',
+					'link' : 'reserve-spot',
 					funct : function() {
 						}
 				},
 				{
-					'name' : 'Reserve parking spot',
-					'link' : 'reserve_spot',
+					'name' : 'View Parking Lot',
+					'link' : 'view-parking',
 					funct : function() {
 						}
 				},

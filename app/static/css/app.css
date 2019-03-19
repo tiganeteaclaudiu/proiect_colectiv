@@ -332,7 +332,7 @@ body, html {
 #register-container {
 	width: 30%;
 	height: 80%;
-	border: 1px solid #fed766;
+	border: 1px solid black;
 	border-radius: 9px;
 	margin-bottom: 4%;
 	padding: 1%;
@@ -354,12 +354,12 @@ body, html {
 }
 
 .register-input {
-	background-color: #f85a3e;
+	background-color:#333035;
 	border: none;
-	border-bottom: 2px solid #fed766;
+	border-bottom: 2px solid white;
 	width: 100%;
 	margin-bottom: 7%;
-	color: #fed766;
+	color: white;
 }
 
 .register-input-header {
@@ -371,14 +371,14 @@ body, html {
 #register-submit {
 	width: 43%;
 	height: 40px;
-	background-color: #fed766;
+	background-color: white;
 	margin-top: 7%;
 	border-radius: 5px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
-	color: #f85a3e;
+	color: black;
 	font-size: 1.2rem;
 
 }

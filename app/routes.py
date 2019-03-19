@@ -31,6 +31,47 @@ def index():
 def register():
 	return render_template('register.html')
 
+@app.route('/admin/')
+def admin():
+	return render_template('admin_login.html')
+
+@app.route('/post_admin_login/',methods=['POST'])
+def post_admin_login():
+	try:
+		session['logged_in'] = ''
+		JSONstring = json.dumps(request.get_json(force=True))
+		data = json.loads(JSONstring)
+
+		username = data['username']
+		password = data['password']
+
+		print ('post_login tried user:\n')
+		print ('username: {}'.format(username))
+		print ('password: {}'.format(password))
+
+		user = Admin.query.filter_by(username=username).first()
+
+		if user is not None:
+			if user.password == password:
+				print ('logged in')
+				session['logged_in'] = True
+				session['username'] = username
+				return json.dumps({'status' : 'success'})
+			else:
+				print ('password wrong')
+				return json.dumps({'status' : 'failure'})
+		else:
+			print ('did not find admin')
+			return json.dumps({
+				'status' : 'failure'
+				})
+
+	except Exception as e:
+		print ('post_login ERROR: {}'.format(e))
+		return json.dumps({
+			'status' : 'failure'
+			})
+
 @app.route('/post_register/',methods=['POST'])
 def post_register():
 	try:
@@ -40,9 +81,8 @@ def post_register():
 		username = data['username']
 		email = data['email']
 		password = data['password']
-		location = data['location_data']
 
-		new_user = User(username=username,email=email,password=password,location=location)
+		new_user = User(username=username,email=email,password=password)
 		db.session.add(new_user)
 		db.session.commit()
 
@@ -50,7 +90,6 @@ def post_register():
 		print ('username: {}'.format(username))
 		print ('email: {}'.format(email))
 		print ('password: {}'.format(password))
-		print ('location: {}'.format(location))
 
 		return json.dumps({
 			'status' : 'success'
