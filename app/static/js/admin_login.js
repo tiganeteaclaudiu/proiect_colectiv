@@ -31,7 +31,7 @@ $(document).ready(function(){
 		});
 
 		$.ajax({
-			url: '/post_login/',
+			url: '/post_admin_login/',
 			method: 'POST',
 			data: data,
 			dataType: 'text',
@@ -41,9 +41,11 @@ $(document).ready(function(){
 				data = JSON.parse(data);
 				if(data['status'] === 'success') {
 					console.log('logged_in')
-					window.location.href = '../index/';
+					window.location.href = '../admin/';
 				}
-				else console.log("Login failed");
+				else {
+					$("#login-failure").show();
+				}
 			}
 		});
 	}

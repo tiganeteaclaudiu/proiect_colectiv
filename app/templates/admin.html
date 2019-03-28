@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+ <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Family</title>
+
+		
+		<link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
+		<link href='/static/fullcalendar/daygrid/main.css' rel='stylesheet' />
+		<link href='/static/fullcalendar/timegrid/main.css' rel='stylesheet' />
+		
+		<link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+		
+		<script src='/static/fullcalendar/core/main.js'></script>
+		<script src='/static/fullcalendar/daygrid/main.js'></script>
+		<script src='/static/fullcalendar/timegrid/main.js'></script>
+		<script src='/static/fullcalendar/interaction/main.js'></script>
+
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+        <link href="{{ url_for('static', filename='fonts/glyphicons.css') }}" rel="stylesheet">
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
+
+		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/admin_app.js') }}"></script>
+	
+
+		<!-- <script type='text/javascript' src='{{ url_for("static", filename="js/fullcalendar.js") }}'></script> -->
+
+    </head>
+<body>
+
+<div id='wrapper'>
+
+	<div id='header'>
+		<div id='logo-container'>
+			<img src="../static/images/logo.png" style="width: 50%;" class="img-responsive pull-right">
+		</div>
+	</div>
+	<div id='content-container'>
+		
+
+		<div id="side-menu">
+			<div id='side-menu-header'>Main Panel</div>
+
+		</div>
+
+
+		<div id="content">
+			<div id='content-header-container'>
+				<span class="glyphicon glyphicon-home content-header-icon" aria-hidden="true"></span>
+				<p id='content-header'>Home</p>
+				<span class="glyphicon glyphicon-arrow-left content-header-icon" aria-hidden="true" id='content-back-button'></span>
+            </div>
+
+			<div class="content-2col" id='content_user-menu-main-panel'>
+				<div class='content-2col-col'>
+					<div id='home-page-image' style='margin-right:-20%;'>
+						<img src="../static/images/main_page_image.png" style="width: 70%;" class="img-responsive pull-right">
+					</div>
+				</div>
+				<div class='content-2col-col' style='justify-content: center;margin-right: 15%;'>
+					<h1 style='color:#636363'>Welcome to the Home Page!</h1>
+
+				</div>
+			</div>
+
+			<div class="content-2col" id="content_parking-lot-stats" style="display: none;">
+				<div class='content-2col-col'>
+
+						<h5 id="join-family-header" style="align-self: flex-start;">Parking lot management:</h5>
+					<table id="parking-lot-stats-table" class='table-styled' style="margin-top: 0%;margin-bottom: 2%;">
+						<tbody style="">
+							<tr>
+								<th> Parking Spot Id </th>
+								<th> Location </th>
+							</tr>
+						</tbody>
+					</table>
+
+					<h5 id="join-family-header" style="align-self: flex-start;">Reservations happening right now:</h5>
+					<table id="parking-lot-reservations-table" class='table-styled' style="margin-top: 0%;">
+						<tbody style="">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>

@@ -7,21 +7,31 @@
 
         <title>Family</title>
 
+		
+		<link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
+		<link href='/static/fullcalendar/daygrid/main.css' rel='stylesheet' />
+		<link href='/static/fullcalendar/timegrid/main.css' rel='stylesheet' />
+		
+		<link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
+		
+		<script src='/static/fullcalendar/core/main.js'></script>
+		<script src='/static/fullcalendar/daygrid/main.js'></script>
+		<script src='/static/fullcalendar/timegrid/main.js'></script>
+		<script src='/static/fullcalendar/interaction/main.js'></script>
+
         <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
-        <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
 
         <link href="{{ url_for('static', filename='fonts/glyphicons.css') }}" rel="stylesheet">
 
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script>
 
-        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+	
 
-        <script>
+		<!-- <script type='text/javascript' src='{{ url_for("static", filename="js/fullcalendar.js") }}'></script> -->
 
-        	{% include 'app.js' %}
-
-		</script>
     </head>
 <body>
 
@@ -61,33 +71,6 @@
 				</div>
 			</div>
 
-			<div class="content-2col" id='content_reserve-spot' style='display:none;'>
-			    <div id='view_parking-container'>
-			    	<h2 id="view_parking-header"> Select a parking lot! </h5>
-
-			        <div class="content-auto-height-row" id='view_parking-location-row'>
-			            <input id='view_parking' type="text" placeholder="Location (City)" class='input-styled' style="width: 30%;margin-right: 5%;">
-			            <span id='view_parking-search-location' aria-hidden="true" class="glyphicon glyphicon-search content-header-icon" style="cursor:pointer;color: #f85a3e;font-size: 2.4rem;"></span>
-			        </div>
-
-			        <div class="content-auto-height-row" id='view_parking-id-row' style='display: none;'>
-			        	<input id='view_parking-id' type="text" placeholder="ID" class='input-styled' style="width: 30%;margin-right: 5%;">
-			            <span id='view_parking-search-id' aria-hidden="true" class="glyphicon glyphicon-search content-header-icon" style="cursor:pointer;color: #f85a3e;font-size: 2.4rem;"></span>
-			        </div>
-
-			        <table id="parkings-table" class='table-styled'>
-			            <tbody style="">
-			              
-			            </tbody>
-			        </table>
-
-			        <div id='view_parking-switch-button' class='button-styled' style='position: absolute;bottom: 7%;'>
-			        	Search by ID
-			        </div>
-
-			    </div>
-			</div>
-
 			<div class="content-2col" id="content_update-personal" style="display: none;">
 				<div class="content-2col-col" style="justify-content: space-evenly;height: 56%;width: 42%;">
 			    	<!-- TODO: UPDATE DATA -->
@@ -114,14 +97,67 @@
 			</div>
 
 			<div class="content-2col" id='content_view-parking' style='display: none'>
-				<div class='content-2col-col'>
-					<div id='home-page-image' style='margin-right:-20%;'>
-						<img src="../static/images/main_page_image.png" style="width: 70%;" class="img-responsive pull-right">
+				<div class="content-2col-col" style='width:100%;flex-direction: row;'>
+                            
+					<div id="parking-map-users-panel">
+						<div id='parking-map-users-panel-header'>
+						   <h3 style="margin: 0;color: white;">Parking lots</h3>
+						</div>
+						<div class="parking-map-users-panel-user" id='9220-glover-road'>
+							<h5 style="margin: 0;">9220 Glover Road</h5>
+						 </div>
+						 <div class="parking-map-users-panel-user" id='3321-brock-avenue'>
+							<h5 style="margin: 0;">3321 Brock Avenue</h5>
+						 </div>
+					</div>
+
+					<div id='parking-map-container'>
+						
 					</div>
 				</div>
-				<div class='content-2col-col' style='justify-content: center;margin-right: 15%;'>
-					<h1 style='color:#636363'>Welcome to the Home Page!</h1>
+			</div>
 
+			<div class="content-2col" id="content_reserve-spot" style="display: none;flex-direction: column;">
+
+				<div id='calendar-header' style="width: 100%;height: 15%;display: flex;justify-content: center;align-items: center;"><h5 style="margin: 0;"> Select one day or drag across multiple days to set up a reservation! </h5></div>
+
+				<!-- <div id='calendar'></div> -->
+				<div class="content-2col-col">
+					<div id='calendar'></div>
+				</div>
+				<div class="content-2col-col" id='family-event-create-wrapper' style="position: absolute;z-index: 30;top: 20%;display:none;">
+					<div class="long-input-container" id="family-event-create-container" style="display:flex;flex-direction: column;height: auto;margin-top: 25%;background-color: #2ad4ea;color: white;">
+						<div class="flex-start-row" style="justify-content: center;align-items: center;display: flex;position: relative;flex-direction:column;">
+							<h5 style="font-weight: bold;font-size: 1.3rem;margin: 5px;position: absolute;left: 20%;">Reservation Date:</h5>
+							<h4 style='margin: 0;' id='event-start-date'></h4>
+						</div>
+
+						<div class="flex-start-row" style="justify-content: center;align-items: center;display: flex;position: relative;flex-direction:column;margin-top: 14px;">
+							<h5 style="font-weight: bold;font-size: 1.3rem;margin: 5px;position: absolute;left: 20%;">Reserve multiple days:</h5>
+							<input id='event-repeat-reservation' type="checkbox">
+						</div>
+
+						<div id='event-create-days-row' class="flex-start-row" style="display:none;justify-content: center;align-items: center;position: relative;flex-direction:column;margin-top: 14px;">
+							<h5 style="font-weight: bold;font-size: 1.3rem;margin: 5px;position: absolute;left: 20%;">Number of days:</h5>
+							
+							<input id='event-create-days' type="number" min="1" max="7" style="width: 73px;">
+						</div>
+
+						<div class="flex-start-row" style="justify-content: center;">
+							<div class="button-styled" id="event-create-button" style="margin-top: 3%;align-self: flex-end;position: absolute;right: 2%;">
+								<h5 id='event-create-button-text' style="color: white;margin: 0;font-family: Arial;font-weight: bold;font-size: 1,2rem;">Reserve
+								</h5>
+							</div>
+							 
+							<div class="button-styled" id="event-delete-button" style="margin-top: 3%;align-self: flex-end;position: absolute;left: 2%;">
+								<h5 style="color: white;margin: 0;font-family: Arial;font-weight: bold;font-size: 1,2rem;">Cancel
+								</h5>
+							</div>
+						</div>
+						<div class="button-styled" id="event-input-close-button" style="transform: translateY(-170%);align-self: flex-end;position: absolute;right: 2%;background-color: inherit;">
+							<h5 style="color: white;margin: 0;font-family: Arial;font-weight: bold;font-size: 2rem;">X</h5>
+						</div>
+					</div>
 				</div>
 			</div>
 

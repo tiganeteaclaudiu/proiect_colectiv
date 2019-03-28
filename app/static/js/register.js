@@ -8,6 +8,8 @@ $(document).ready(function(){
 $("#register-submit").click(function(){
 	console.log('Submitted data.');
 	username = $("#register-username");
+	first_name = $("#register-first-name");
+	last_name = $("#register-last-name");
 	email = $("#register-email");
 	password = $("#register-password");
 	location_data = $("#register-location");
@@ -15,9 +17,10 @@ $("#register-submit").click(function(){
 
 	data = JSON.stringify({
 		'username' : username.val(),
+		'first_name' : first_name.val(),
+		'last_name' : last_name.val(),
 		'email' : email.val(),
-		'password' : password.val(),
-		'location_data' : location_data.val()
+		'password' : password.val()
 	});
 
 	$.ajax({

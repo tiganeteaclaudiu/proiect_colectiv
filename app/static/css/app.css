@@ -597,3 +597,121 @@ body, html {
 	justify-content: flex-start;
 	align-items: center;
  }
+
+ #parking-map-users-panel {
+	width: 14%;
+
+height: 100%;
+
+display: flex;
+
+justify-content: flex-start;
+
+align-items: center;
+
+flex-direction: column;
+
+border: 2px solid #2ad4ea;
+
+border-radius: 10px 0px 0px 10px;
+
+margin-left: 6%;
+}
+
+#parking-map-checkins-panel {
+	width: 20%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+	border: 2px solid #2ad4ea;
+	border-radius: 10px 0px 0px 10px;
+}
+
+#parking-map-users-panel-header {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 2px solid #2ad4ea;
+	background-color: #2ad4ea;
+}
+
+.parking-map-users-panel-user {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 2px solid #2ad4ea;
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.parking-map-checkins-panel-checkin {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 2px solid #2ad4ea;
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.parking-map-users-panel-user h3 {
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	margin: 0;
+}
+
+
+.parking-map-users-panel-user:hover {
+	background-color: #eaeaea;
+}
+/* 
+.fc-axis {
+	display: block !important;
+}
+
+.fc-time {
+	display: block !important;
+}
+
+.fc-right {
+	display:block;
+}
+
+.fc-right div {
+	display:block;
+}
+
+.fc-button-group {
+	display: block !important;
+}
+
+.fc-button {
+	display: block !important;
+}
+
+.fc-button-group button {
+	display:block;
+}
+
+.fc-next-button {
+	display: block !important;
+}
+
+.fc-prev-button {
+	display: block !important;
+}
+
+.fc-bg {
+	display:contents !important;
+} */

@@ -1,26 +1,25 @@
-
-username = '{{ username }}';
-
-console.log('user!: '+username);
-
-
 jQuery(document).ready(function(){
-
+	
 current_family = '';
+parking_spot_id = '0';
+parking_lot_name = '';
 
 menu_options = {
 	'user-menu' : {
 		'user-menu-main-panel' : [
 				{
-					'name' : 'Reserve parking spots',
+					'name' : 'See reserved spots',
 					'link' : 'reserve-spot',
 					funct : function() {
+						load_calendar(false);
+						$("#calendar-header").html('Select a reservation to cancel it!')
 						}
 				},
 				{
-					'name' : 'View Parking Lot',
+					'name' : 'Reserve Parking Spot',
 					'link' : 'view-parking',
 					funct : function() {
+						load_sidepanel_parking_events();
 						}
 				},
 				{
@@ -28,26 +27,6 @@ menu_options = {
 					'link' : 'update-personal',
 					funct : function() {
 						}
-				}
-			]
-	},
-	'family-menu' : {
-		'family-menu-main-panel' : [
-				{
-					'name' : 'Reminders',
-					'link' : 'family-reminders',
-					funct : function() {
-						console.log("MERGE FUNCTIA pt reminder!");
-						query_reminders();
-					}
-				},
-				{
-					'name' : 'Lists',
-					'link' : 'family-lists',
-					funct : function() {
-						console.log('merge functia pt lists!');
-						query_lists();
-					}
 				}
 			]
 	}
@@ -210,5 +189,432 @@ $("#view_parking-switch-button").click(function(e) {
 		$("#view_parking-switch-button").html('Search by ID');
 	}
 });
+
+current_parking = '';
+
+function load_parking(parking_file) {
+
+	console.log('called now1');
+
+	$("#parking-map-container").html('');
+
+	$("#parking-map-container").load('/static/'+parking_file);
+}
+
+function load_sidepanel_parking_events() {
+
+	$("#3321-brock-avenue").click(function(e) {
+        e.preventDefault();
+        console.log('now');
+        //check if parking lot is not closed
+        // if(check_parking_lot_open('3321 Brock Avenue') == false) {
+        //     load_parking('3321_brock_avenue.html');
+
+        //     current_parking = '3321 Brock Avenue';
+        //     parking_lot_name = current_parking;
+    
+        //     setTimeout(load_parking_spot_events,1000);
+        // } else {
+        //     //parking is closed
+        //     alert('Parking lot is closed for the day. Sorry for the inconvenience.');
+        // }
+
+	});
+
+	$("#9220-glover-road").click(function(e) {
+        e.preventDefault();
+
+        if(check_parking_lot_open('3321 Brock Avenue') == false) {
+            load_parking('9920_glover_road.html');
+            current_parking = '9220 Glover Road';
+            parking_lot_name = current_parking;
+
+            setTimeout(load_parking_spot_events,1000);
+        } else {
+            alert('Parking lot is closed for the day. Sorry for the inconvenience.');
+        }
+	});
+
+}
+
+function check_parking_lot_open(parking_lot_name) {
+    data = JSON.stringify({
+        'parking_lot_name' : parking_lot_name
+    });
+
+    $.ajax({
+        url : '/check_parking_lot_open/',
+        method : 'POST',
+        data: data,
+        success: function(data) {
+            data = JSON.parse(data);
+            return data['closed'];
+        }
+    });
+        
+}
+
+
+function load_parking_spot_events() {
+
+	console.log('unbinding');
+
+	$(".parking-spot").unbind( "click" );
+
+	console.log('LOAD SPOT EVENBT');
+
+	$(".parking-spot").click(function(e) {
+		e.preventDefault();
+	
+		id = $(this).attr('title');
+		set_current_parking_spot_id(id);
+
+		// load_calendar(true);
+		$("#calendar-header").html('Select one day or drag across multiple days to set up a reservation!')
+		show_content('reserve-spot');
+		
+	});
+	
+}
+
+function set_current_parking_spot_id(id) {
+	parking_spot_id = id;
+	console.log('new parking_spot_id: '+parking_spot_id);
+
+}
+
+//--------------------- calendar
+
+
+
+function load_calendar(selectable) {
+
+	console.log('LOADING CALENDAR');
+
+	events = [
+		{
+			"allDay": "",
+			"title": "Test event",
+			"id": "821",
+			"end": "2019-03-27 14:00:00",
+			"start": "2019-03-27 16:00:00"
+		},
+		{
+			"allDay": "",
+			"title": "Test event 2",
+			"id": "822",
+			"end": "2019-27-03 21:00:00",
+			"start": "2019-27-03 22:00:00"
+		}
+	];
+
+	var calendarEl = document.getElementById('calendar');
+
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		plugins: [ 'timeGrid' ],
+		timeZone: 'UTC',
+		defaultView: 'timeGridWeek',
+		header: {
+		  left: 'prev,next today',
+		  center: 'title',
+		  right: 'timeGridWeek,timeGridDay'
+		}
+	  });
+	
+
+	  calendar.render();
+
+	  calendar.addEventSource(events);
+	
+	  calendar.render();
+	  
+	  setTimeout(function() {
+		  calendar.render();
+	  },1000);
+
+// 	var calendarEl = document.getElementById('calendar');
+
+//   $('#calendar').fullCalendar({
+//     defaultView: 'agendaWeek',
+//     header: {
+//       left: 'prev,next today',
+//       center: 'title',
+//       right: 'agendaWeek,agendaDay'
+//     },
+//     events: 'https://fullcalendar.io/demo-events.json'
+//   })
+
+//   calendar.render();
+	
+	// $("#calendar").fullCalendar('destroy');
+
+	// var today_date = moment().format('YYYY-MM-DD');
+	// console.log(today_date);
+	// // $('#calendar').fullCalendar('gotoDate', today_date);
+	// $('#calendar').fullCalendar({
+
+	// 	defaultView: 'agendaWeek',
+	// 	height: 650,
+
+	// 	theme: false,
+	// 	header: {
+	// 		left: 'prev,next today',
+	// 		center: 'title',
+	// 		right: 'month,basicWeek'
+	// 		// right: 'month,basicWeek,basicDay'
+	// 	},
+	// 	// header: { center: 'month,agendaWeek' }, // buttons for switching between views
+	// 	defaultDate: today_date,
+	// 	businessHours:
+	// 	{
+	// 		rendering: 'inverse-background',
+	// 		dow: [0,1]
+	// 	},
+
+		// editable: false,
+		// eventLimit: true, // allow "more" link when too many events
+		// eventRender: function (event, element) {
+
+		// 	console.log('EVENT');
+		// 	console.log(event);
+		// 	console.log(event.parking_lot_name);
+
+		// 	element.attr('href', 'javascript:void(0);');
+
+		// 	element.find('.fc-title').text(event.parking_lot_name + '  Spot: '+event.parking_spot_index);
+
+		// 	element.click(function() {				
+		// 		// alert('clicked ' + date.format());
+		// 		event.title = 'existing';
+		// 		show_event_input(event);
+		// 	});
+		// },
+		// selectable : true,
+		// dayClick: function(date) {
+
+		// 	if (selectable === false) {
+		// 		return ''
+		// 	} else {
+		// 		console.log('CLICKED');
+		// 		console.log('lot: '+parking_lot_name);
+		// 		console.log('spot:' + parking_spot_id);
+		// 		// alert('clicked ' + date.format());
+		// 		show_event_input({'start' : date, 'end' : date});
+		// 	}
+		// },
+		// select: function(startDate, endDate) {
+		// // alert('selected ' + startDate.format() + ' to ' + endDate.format());
+		// 	if (selectable === false) {
+		// 		return ''
+		// 	} else {
+		// 		show_event_input({'start' : startDate, 'end' : endDate});
+		// 	}
+		// }
+	// });
+
+	// query_reservations();
+
+
+	// $("#calendar").fullCalendar('render');
+
+}
+
+function show_event_input(event) {
+
+	console.log('CLICKED DAY');
+
+	$("#family-event-create-wrapper").css('display','flex');
+
+	start_date_field = $("#event-start-date");
+	end_date_field = $("#event-end-date");
+
+	console.log(start_date_field);
+	console.log(end_date_field);
+
+	console.log(event.start.format());
+	console.log(event.end.format());
+
+	start_date_field.html(event.start.format());
+	end_date_field.html(event.end.format());
+
+	$("#event-create-button").css('display','flex');
+
+	$("#event-delete-button").off("click");
+
+	$("#event-delete-button").click(function() {
+		console.log('PRESSED DELETEXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+		delete_event(event);
+	});
+
+	if(event.title != undefined) {
+		console.log('CLICKED EVENT TO UPDATE');
+		$("#event-create-button-text").html('Update');
+
+		$("#event-create-button").off('click');
+
+		$("#event-create-button").hide();
+		
+	} else {
+		$("#event-create-button-text").html('Create');
+
+		$("#event-create-button").off('click');
+
+		$("#event-create-button").click(function() {
+			if(verify_event_inputs() === true) {
+				create_calendar_event();
+			}
+		})
+	}
+
+	$("#family-event-create-wrapper").css('display','flex');
+}
+
+function verify_event_inputs() {
+	title_field = $("#event-title-input");
+	description_field = $("#events-description-input");
+
+	title = title_field.val();
+	description = description_field.val();
+
+	console.log('verify');
+	console.log(title + '  ' + description);
+
+	if(title === '') {
+		alert('Please insert a title to your new event.');
+		return false;
+	} else {
+		if (description === '') {
+			alert('Please insert a description for your new event.');
+			return false
+		} else {
+			return true
+		}
+
+	}
+}
+
+function create_calendar_event() {
+	console.log('entered create_event');
+
+	start_date = $("#event-start-date").html();
+	end_date = $("#event-end-date").html();
+	starting_hour = $("#reservation-starting-hour").val();
+
+	console.log('PARKING LOT NAME: '+parking_lot_name);
+
+	data = JSON.stringify({
+		'parking_lot' : parking_lot_name,
+		'parking_spot' : parking_spot_id,
+		'start_date' : start_date,
+		'end_date' : end_date,
+		'starting_hour' : starting_hour
+	});
+
+	$.ajax({
+		url: '/post_events/',
+		method: 'POST',
+		data: data,
+		success: function(data) {
+			data = JSON.parse(data);
+			if(data['status'] === 'success') {
+				setTimeout(query_reservations,1000);
+				$("#family-event-create-wrapper").hide();
+			}
+		}
+	});
+
+}
+
+function query_reservations_for_spot() {
+
+	events = []
+
+	$.ajax({
+		url: '/query_reservations/',
+		method: 'POST',
+		data: JSON.stringify('{}'),
+		success: function(data) {
+		// 	console.log("query_events result:");
+		// 	console.log(JSON.parse(data));
+			data=JSON.parse(data);
+			reservations = JSON.parse(data['reservations']);
+
+			console.log('reservations ==============')
+			console.log(reservations);
+
+			load_calendar_reservations(reservations['reservations']);
+
+			console.log('returning reservations');
+			console.log(reservations['reservations']);
+
+		return events['events'];
+		}
+	});
+}
+
+
+function query_reservations() {
+
+	events = []
+
+	$.ajax({
+		url: '/query_reservations/',
+		method: 'POST',
+		data: JSON.stringify('{}'),
+		success: function(data) {
+		// 	console.log("query_events result:");
+		// 	console.log(JSON.parse(data));
+			data=JSON.parse(data);
+			reservations = JSON.parse(data['reservations']);
+
+			console.log('reservations ==============')
+			console.log(reservations);
+
+			load_calendar_reservations(reservations['reservations']);
+
+			console.log('returning reservations');
+			console.log(reservations['reservations']);
+
+		return events['events'];
+		}
+	});
+}
+
+function load_calendar_reservations(reservations) {
+	console.log('reservations ==============22')
+	// console.log(reservations);
+
+	// $("#calendar").fullCalendar('removeEvents');
+
+	// setTimeout(function() {
+	// 		$('#calendar').fullCalendar('addEventSource', reservations);
+	// }, 500);
+
+}
+
+function delete_event(event) {
+
+	data = {
+		'id' : event.id
+	};
+
+	$.ajax({
+		url : '/delete_event/',
+		method : 'POST',
+		data: JSON.stringify(data),
+		success: function(data) {
+			data = JSON.parse(data);
+			$("#family-event-create-wrapper").hide();
+			query_reservations();
+		}
+	});
+}
+
+$("#event-input-close-button").click(function(e) {
+	e.preventDefault();
+	// reload_list_input();
+	$("#family-event-create-wrapper").hide();
+});
+
 
 });
